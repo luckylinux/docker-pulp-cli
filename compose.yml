@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  pulp-cli:
+    # image: localhost:5000/local/pulp-cli:debian-latest
+    image: pulp-cli:debian-latest
+    pull_policy: "missing"
+    container_name: pulp-cli
+    # env_file:
+    #   - .env
+    environment:
+      - "ENABLE_INFINITE_LOOP=true"
+    volumes:
+      - "~/containers/config/pulp-cli:/root/.config/pulp:z"
+    restart: "unless-stopped"
+    networks:
+      - pulp
+
+networks:
+  pulp:
+    external: true
+    name: pulp
